@@ -1,0 +1,40 @@
+// Elements 
+const clearBtn = document.getElementById("clear-btn");
+const valBtns = document.querySelectorAll(".val-btn");
+const calculateBtn = document.getElementById("calculate-btn");
+const resultField = document.getElementById("result");
+
+// Event listeners For value buttons
+valBtns.forEach(function (btn)
+{
+        btn.addEventListener("click", function ()
+        {
+                const value = this.textContent;
+                resultField.value += value;
+        });
+});
+
+// Event listener for clear button
+clearBtn.addEventListener("click", function ()
+{
+        resultField.value = "";    
+});
+
+// Event listener for calculate button
+calculateBtn.addEventListener("click", function ()
+{
+        try
+        {
+                const result = eval(resultField.value);
+                if (isNaN(result) || !isFinite(result))
+                {
+                        throw new Error("Invalid expression");
+                }
+                resultField.value = result;
+        }
+        catch (error)
+        {
+                resultField.value = "Error";
+                console.error("Error:", error.message);
+        }
+});
